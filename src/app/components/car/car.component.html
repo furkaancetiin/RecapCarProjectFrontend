@@ -1,0 +1,34 @@
+<div class="mb-3">
+  <nav class="navbar navbar-white bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mx-auto"><h5>Araçlar</h5></span>
+    </div>
+  </nav>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama ifadesi giriniz">
+</div>
+<div *ngIf="filterText">
+  Aradığınız ifade : {{filterText}}
+  </div>
+<div>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>       
+        <th scope="col">Araç İsmi</th>
+        <th scope="col">Model</th>
+        <th scope="col">Günlük Ücret</th>
+        <th scope="col">Açıklama</th> 
+        <th></th>       
+      </tr>
+    </thead>
+    <tbody>    
+      <tr (click)="setCurrentCar(car)" *ngFor="let car of cars | carFilter:filterText">        
+        <td>{{car.carName}}</td>
+        <td>{{car.modelYear}}</td>
+        <td>{{car.dailyPrice}}</td>
+        <td>{{car.description}}</td>
+        <td routerLink="/cars/cardetail/{{car.id}}"><button type="button" class="btn btn-primary">Detaylı İncele</button></td>        
+      </tr> 
+    </tbody>
+  </table>
+</div>
+

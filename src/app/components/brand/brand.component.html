@@ -1,0 +1,28 @@
+<div class="p-2 my-2"></div>
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand mx-auto"><h5>Markalar</h5></span>
+  </div>
+</nav>
+
+<div class="mb-3">
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Arama ifadesi giriniz"
+  />
+</div>
+<ul class="list-group">
+  <li
+    (click)="setCurrentBrand(brand)"
+    routerLink="/cars/brand/{{ brand.brandId }}"
+    *ngFor="let brand of brands | brandFilter: filterText"
+    [class]="getCurrentBrandClass(brand)"
+  >
+    {{ brand.brandName }}
+  </li>
+</ul>
+
+<h5 *ngIf="currentBrand">{{ currentBrand.brandName }} seçtiniz.</h5>

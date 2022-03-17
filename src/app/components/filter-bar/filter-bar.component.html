@@ -1,0 +1,45 @@
+
+<div class="p-2 my-4">
+  
+  <form [formGroup]="filterBarForm" (ngSubmit)="filter()">
+    <div class="row">
+      <div class="col-md-2">
+        <select
+          formControlName="brand"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option [ngValue]="null">Markalar</option>
+          <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
+            {{ brand.brandName }}
+          </option>
+        </select>
+        <h5 *ngIf="currentBrand">{{ currentBrand.brandName }} seçtiniz.</h5>
+      </div>
+      <div class="col-md-2">
+        <select
+          formControlName="color"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option [ngValue]="null">Renkler</option>
+          <option *ngFor="let color of colors" [ngValue]="color.colorId">
+            {{ color.colorName }}
+          </option>
+        </select>        
+      </div>      
+     
+      <div class="col-md-1">
+        <button type="submit" class="btn btn-primary">Filtrele</button>
+      </div>
+      <div class="col-md-1">
+        <span routerLink=""
+          ><button type="button" class="btn btn-success" routerLink="">
+            Temizle
+          </button></span
+        >
+      </div>
+    </div>
+  </form>
+ 
+</div>
