@@ -4,39 +4,41 @@ import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
-import { CarImageDetail } from 'src/app/models/carImageDetail';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image-service';
 import { CartService } from 'src/app/services/cart.service';
+import { RentalService } from 'src/app/services/rental.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-cardetail',
-  templateUrl: './cardetail.component.html',
-  styleUrls: ['./cardetail.component.css'],
+  selector: 'app-car-detail',
+  templateUrl: './car-detail.component.html',
+  styleUrls: ['./car-detail.component.css'],
 })
 export class CarDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private carDetailService: CarDetailService,
     private carImageService: CarImageService,
-    private toastrService:ToastrService,
-    private cartService:CartService
+    private toastrService: ToastrService,
+    private cartService: CartService,
+    private rentalService: RentalService
   ) {}
 
-  cars:Car[];  
-  carDetails: CarDetail[];
-  carDetail: CarDetail;
+  cars: Car[];
+  carDetails: CarDetail[];  
   carImages: CarImage[];
+  rentalResult: string;
   baseUrl = environment.imageBase;
   defaultImage = environment.defaultImage;
-  loading = true;
+  loading = true;  
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['carId']) {
         this.getCarImagesByCarId(params['carId']);
         this.getCarDetailsByCarId(params['carId']);
+        this.getRentalDeliveryById(params['carId']);
       } else {
         this.getCarDetails();
       }
@@ -68,9 +70,11 @@ export class CarDetailComponent implements OnInit {
       this.carImages = response.data;
     });
   }
-
-  addToCart(carDetail: CarDetail) {
-    this.toastrService.success('Sepete eklendi',carDetail.carName);
-    this.cartService.addToCart(carDetail);
-  }
+  
+  getRentalDeliveryById(carId: number) {
+    this.rentalService.getRentalDeliveryById(carId).subscribe((response) => {
+      console.log(response.message);
+      this.rentalResult = response.message;
+    });
+  }  
 }

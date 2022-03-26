@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule,LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { registerLocaleData } from '@angular/common';
+import localeTr from '@angular/common/locales/Tr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +14,8 @@ import { RentalComponent } from './components/rental/rental.component';
 import { ColorComponent } from './components/color/color.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { NaviComponent } from './components/navi/navi.component';
-import { CarDetailComponent } from './components/cardetail/cardetail.component';
-import { RentalDetailComponent } from './components/rentaldetail/rentaldetail.component';
+import { CarDetailComponent } from './components/cardetail/car-detail.component';
+import { RentalDetailComponent } from './components/rental-detail/rental-detail.component';
 import { CarFilterPipe } from './pipes/car-filter.pipe';
 import { BrandFilterPipe } from './pipes/brand-filter.pipe';
 import { ColorFilterPipe } from './pipes/color-filter.pipe';
@@ -25,7 +27,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
-
+registerLocaleData(localeTr);
 
 @NgModule({
   declarations: [
@@ -52,16 +54,16 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
+    AppRoutingModule,  
+    HttpClientModule,   
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,    
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right"
-    })    
+    }) 
   ],
   
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'tr-TR'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

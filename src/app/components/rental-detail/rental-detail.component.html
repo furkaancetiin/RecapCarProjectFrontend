@@ -1,0 +1,99 @@
+<div class="d-grid gap">
+  <button
+    type="button"
+    class="btn btn-warning mx-auto"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    Sepete Ekle
+  </button>
+</div>
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sepete Ekle</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>      
+      <div class="modal-body">  
+      <form>
+        <div *ngFor="let carDetail of carDetails">
+          <div class="row">
+            <div class="col-md-7">
+              <img
+            *ngIf="carDetail.image[0]"
+            src="{{ baseUrl }}{{ carDetail.image[0].imagePath }}"
+            height="175"
+            width="175"
+            class="d-block w-100"
+            alt="..."
+          />
+          <img
+            *ngIf="!carDetail.image[0]"
+            src="{{ baseUrl }}{{ defaultImage }} "
+            height="175"
+            width="175"
+            class="card-img-top"
+            alt=""
+          />
+            </div> 
+            <div class="col-md-5">
+             <h3>{{carDetail.carName}}</h3>
+             <h5 class="card-subtitle mb-2 text-muted">Ödenecek Tutar</h5>
+             <h5 style="color:green">{{carDetail.dailyPrice * rentalPeriod | currency:'₺'}}</h5>            
+            </div>
+          </div>     
+          </div>  
+        <div class="row">          
+          <div class="col-md-6">
+            <form class="row row-cols-sm-auto">
+              <div class="col-12">
+                <label>Kiralama Tarihi</label>
+              <br>
+                <div class="input-group">
+                  <input class="form-control"
+                         name="rentDate" [(ngModel)]="rentDate" type="date" (ngModelChange)="calculateRentalPeriod()" [min]="getDateNow()">                  
+                </div>
+              </div>
+            </form>            
+          </div>
+          <div class="col-md-6">
+            <form class="row row-cols-sm-auto">
+              <div class="col-12">
+                <label>Teslim Tarihi</label>
+                <div class="input-group">
+                  <input class="form-control" 
+                         name="returnDate" [(ngModel)]="returnDate" type="date" (ngModelChange)="calculateRentalPeriod()" [min]="addDayToDate(convertStringToDate(rentDate),1)">                  
+                </div>
+              </div>
+            </form> 
+          </div>
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <div>
+          <tr *ngFor="let carDetail of carDetails">
+            <td>
+              <button (click)="addToCart(carDetail,convertStringToDate(rentDate),convertStringToDate(returnDate))" type="submit" class="btn btn-warning">Sepete Ekle</button>
+            </td>            
+          </tr>       
+        </div>
+      </div>    
+    </div>
+  </div>
+</div>

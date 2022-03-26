@@ -1,6 +1,7 @@
 import { CarDetail } from "./carDetail";
 
 export class CartItem{
-    carDetail:CarDetail;
-    quantity:number;
+    carDetail:CarDetail;    
+    rentDate:Date;
+    returnDate:Date;
 }

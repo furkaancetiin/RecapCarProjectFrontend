@@ -6,14 +6,54 @@
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    Sepetim
+    <img src="assets/svg/cart.svg" width="25" height="25" /> Sepetim
   </a>
-  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">    
+    <hr />
     <li *ngFor="let cartItem of cartItems">
-      
-      <a class="dropdown-item"><span>{{cartItem.carDetail.carName}}</span>{{cartItem.quantity}}</a>
+      <a class="dropdown-item">
+        <div class="d-flex flex-row">
+          <div class="p-2">
+            <img
+              src="{{ baseUrl }}{{ cartItem.carDetail.image[0].imagePath }}"
+              width="125"
+              height="75"
+            />
+          </div>
+          <div class="p-2">
+            <h4>{{ cartItem.carDetail.carName }}</h4>
+            <small class="text-muted"
+              >Kiralama Süresi: {{ showDate(cartItem.rentDate) }} -
+              {{ showDate(cartItem.returnDate) }}              
+              <p>
+                ({{ getRentalPeriod(cartItem.rentDate, cartItem.returnDate) }}
+                gün kiralanacak)
+              </p>              
+            </small>
+            <p class="card-text text-danger text-nowrap">
+              <strong>
+                {{
+                  cartItem.carDetail.dailyPrice *
+                    getRentalPeriod(cartItem.rentDate, cartItem.returnDate)
+                    | currency: "₺"
+                }}
+              </strong>
+              <span style="margin-left: 7em;">
+                <button
+                type="button"
+                (click)="removeCart(cartItem.carDetail)"
+                class="btn btn-danger"
+              >
+                Sepetten Sil
+              </button>
+              </span>              
+            </p>
+          </div>         
+        </div>
+      </a>
+      <hr />
     </li>
-    <li><hr class="dropdown-divider" /></li>
-    <li><a class="dropdown-item">Sepete Git</a></li>
+    <hr/>   
+    <button class="button button3">Ödeme Ekranına Git</button>
   </ul>
 </li>

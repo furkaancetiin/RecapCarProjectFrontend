@@ -189,3 +189,30 @@ ul {
     cursor: pointer;
     vertical-align: top
 }
+
+span {
+    margin-left: 5em;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  .button1 {width: 250px;}
+  .button2 {width: 50%;}
+  .button3 {width: 99%;}
+
+  .myCart {
+    background-color: rgb(46, 43, 43);
+    opacity: 1;
+  }
+
