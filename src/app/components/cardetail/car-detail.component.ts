@@ -6,7 +6,7 @@ import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image-service';
-import { CartService } from 'src/app/services/cart.service';
+import { CartSummaryService } from 'src/app/services/cart-summary.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,7 @@ export class CarDetailComponent implements OnInit {
     private carDetailService: CarDetailService,
     private carImageService: CarImageService,
     private toastrService: ToastrService,
-    private cartService: CartService,
+    private cartSummaryService: CartSummaryService,
     private rentalService: RentalService
   ) {}
 
@@ -73,7 +73,7 @@ export class CarDetailComponent implements OnInit {
   
   getRentalDeliveryById(carId: number) {
     this.rentalService.getRentalDeliveryById(carId).subscribe((response) => {
-      console.log(response.message);
+      //console.log(response.message);
       this.rentalResult = response.message;
     });
   }  

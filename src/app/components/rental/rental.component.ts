@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
+import { CartItem } from 'src/app/models/cartItem';
 import { RentalDetail } from 'src/app/models/rentalDetail';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { CarImageService } from 'src/app/services/car-image-service';
-import { CartService } from 'src/app/services/cart.service';
+import { CartSummaryService } from 'src/app/services/cart-summary.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,25 +21,21 @@ export class RentalComponent implements OnInit {
   retunDate:string;
   carDetails: CarDetail[];
   rentalDetails:RentalDetail[];
+  cartItems:CartItem[]=[];  
   carImages:CarImage[];
   baseUrl = environment.imageBase;
   defaultImage = environment.defaultImage;
     
   constructor(
     private toastrService:ToastrService,
-    private cartService:CartService,
+    private cartSummaryService:CartSummaryService,
     private carDetailService:CarDetailService,
     private activatedRoute:ActivatedRoute,
     private carImageService:CarImageService
     ) { }
 
   ngOnInit(): void {  
-   this.activatedRoute.params.subscribe(params=>{
-     if(params['carId']){
-       this.getCarDetailsByCarId(params['carId']),
-       this.getCarImagesByCarId(params['carId'])
-     }
-   })
+  this.list()
   }  
 
   getCarDetailsByCarId(carId: number) {
@@ -52,5 +49,7 @@ export class RentalComponent implements OnInit {
       this.carImages = response.data;
     });
   }
- 
+  list(){
+    this.cartItems=JSON.parse(localStorage.getItem('cartItems'))
+  }   
 }

@@ -1,6 +1,6 @@
 import { NgModule,LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -26,6 +26,9 @@ import { LoginComponent } from './components/auth/login/login.component';
 
 import { ToastrModule } from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CartComponent } from './components/cart/cart.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 registerLocaleData(localeTr);
 
@@ -47,7 +50,9 @@ registerLocaleData(localeTr);
     AuthLayoutComponent,
     LoginComponent,
     RegisterComponent,
-    CartSummaryComponent 
+    CartSummaryComponent,
+    CartComponent,
+    FooterComponent 
         
   ],
 
@@ -63,7 +68,7 @@ registerLocaleData(localeTr);
     }) 
   ],
   
-  providers: [{ provide: LOCALE_ID, useValue: 'tr-TR'}],
+  providers: [{ provide: LOCALE_ID, useValue: 'tr-TR'},{provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

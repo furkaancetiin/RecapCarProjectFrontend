@@ -5,6 +5,7 @@ import { CarComponent } from './components/car/car.component';
 import { CarDetailComponent } from './components/cardetail/car-detail.component';
 import { RentalComponent } from './components/rental/rental.component';
 import { RentalDetailComponent } from './components/rental-detail/rental-detail.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},  
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path:"rental",component:RentalComponent},
   {path:"",component:AuthLayoutComponent,children:[{path:'',redirectTo:'/login',pathMatch:'full'},{path:'login',loadChildren:()=>import('./components/auth/auth.module').then(m=>m.AuthModule)}]},
   {path:"rentaldetail",component:RentalDetailComponent},
-  {path:"rental",component:RentalComponent}
+  {path:"rental",component:RentalComponent},
+  {path:"myCart",component:CartComponent}
   
 
 ];

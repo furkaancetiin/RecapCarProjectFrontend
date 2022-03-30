@@ -1,3 +1,3 @@
 export interface CarImageDetail{
-    imagePath:string
+    imagePath:string;
 }

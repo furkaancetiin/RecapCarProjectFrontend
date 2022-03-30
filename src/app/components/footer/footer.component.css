@@ -1,0 +1,10 @@
+body{ height:41vh; margin:0; }
+
+body{ 
+  display:flex; 
+  flex-direction:column; 
+}
+
+footer{
+  margin-top:auto; 
+}

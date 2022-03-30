@@ -6,9 +6,12 @@
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    <img src="assets/svg/cart.svg" width="25" height="25" /> Sepetim
+    <img src="assets/svg/cart.svg" width="25" height="25" /> Sepetim ({{
+      cartItems.length
+    }})
   </a>
-  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">    
+
+  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
     <hr />
     <li *ngFor="let cartItem of cartItems">
       <a class="dropdown-item">
@@ -20,17 +23,17 @@
               height="75"
             />
           </div>
-          <div class="p-2">
+          <div class="p-4 my-2">
             <h4>{{ cartItem.carDetail.carName }}</h4>
             <small class="text-muted"
               >Kiralama Süresi: {{ showDate(cartItem.rentDate) }} -
-              {{ showDate(cartItem.returnDate) }}              
+              {{ showDate(cartItem.returnDate) }}
               <p>
                 ({{ getRentalPeriod(cartItem.rentDate, cartItem.returnDate) }}
                 gün kiralanacak)
-              </p>              
+              </p>
             </small>
-            <p class="card-text text-danger text-nowrap">
+            <p class="card-text text-success text-nowrap">
               <strong>
                 {{
                   cartItem.carDetail.dailyPrice *
@@ -38,22 +41,34 @@
                     | currency: "₺"
                 }}
               </strong>
-              <span style="margin-left: 7em;">
+              <span style="margin-left: 7em">
                 <button
-                type="button"
-                (click)="removeCart(cartItem.carDetail)"
-                class="btn btn-danger"
-              >
-                Sepetten Sil
-              </button>
-              </span>              
+                  type="button"
+                  (click)="removeCart(cartItem.carDetail)"
+                  class="btn btn-danger"
+                >
+                  Sepetten Sil
+                </button>
+              </span>
             </p>
-          </div>         
+          </div>
         </div>
       </a>
       <hr />
     </li>
-    <hr/>   
-    <button class="button button3">Ödeme Ekranına Git</button>
+    <div class="text-muted" *ngIf="cartItems.length === 0">
+      <p style="text-align: center">
+        Sepetinizde araç bulunmamaktadır.
+        <br />
+        ({{ cartItems.length }})
+      </p>
+    </div>
+    <button
+      *ngIf="cartItems.length > 0"
+      routerLink="/myCart"
+      class="button button3"
+    >
+      Sepeti Onayla
+    </button>
   </ul>
 </li>
