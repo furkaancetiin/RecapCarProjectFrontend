@@ -75,6 +75,8 @@ export class CarDetailComponent implements OnInit {
     this.rentalService.getRentalDeliveryById(carId).subscribe((response) => {
       //console.log(response.message);
       this.rentalResult = response.message;
+    },responseError=>{
+      this.rentalResult=responseError.error.message;
     });
   }  
 }

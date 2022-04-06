@@ -47,7 +47,9 @@ export class RentalDetailComponent implements OnInit {
   }
 
   addToCart(carDetail: CarDetail, rentDate: Date, returnDate: Date) {
-    this.cartSummaryService.addToCart(carDetail, rentDate, returnDate);   
+    this.cartSummaryService.addToCart(carDetail, rentDate, returnDate);
+    
+    
   }
 
   getCarDetailsById(id: number) {
@@ -61,6 +63,7 @@ export class RentalDetailComponent implements OnInit {
       this.carImages = response.data;
     });
   }
+  
 
   calculateRentalPeriod() {
     this.rentalPeriod = this.getRentalPeriod(

@@ -1,9 +1,9 @@
-<div class="row">  
+<div class="row">
   <div class="col-md-3">
     <app-brand></app-brand>
     <app-color></app-color>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-9 background">
     <app-filter-bar></app-filter-bar>
     <div class="mb-3">
       <nav class="navbar navbar-white bg-dark">
@@ -20,34 +20,54 @@
       />
     </div>
     <div *ngIf="filterText">Aradığınız ifade : {{ filterText }}</div>
-    <div>
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Araç İsmi</th>
-            <th scope="col">Model</th>
-            <th scope="col">Günlük Ücret</th>
-            <th scope="col">Açıklama</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            (click)="setCurrentCar(car)"
-            *ngFor="let car of cars | carFilter: filterText"
-          >
-            <td>{{ car.carName }}</td>
-            <td>{{ car.modelYear }}</td>
-            <td>{{ car.dailyPrice }}</td>
-            <td>{{ car.description }}</td>
-            <td routerLink="/cars/cardetail/{{ car.id }}">
-              <button type="button" class="btn btn-primary">
-                Detaylı İncele
+    <div class="container-fluid">
+      <div class="row">
+        <div
+          *ngFor="let carDetail of carDetails | carFilter: filterText"
+          class="card tab"
+          style="width: 17rem"
+        >
+          <ul class="list-group">
+            <img
+              *ngIf="carDetail.image[0]"
+              src="{{ baseUrl }}{{ carDetail.image[0].imagePath }}"
+              height="180"
+              width="180"
+              class="card-img-top"
+              alt="..."
+            />
+            <img
+              *ngIf="!carDetail.image[0]"
+              src="{{ baseUrl }}{{ defaultImage }} "
+              height="288"
+              width="388"
+              class="card-img-top"
+              alt=""
+            />
+          </ul>
+          <div>
+            <div>
+              <h4 class="card-title">
+                {{ carDetail.brandName }} {{ carDetail.carName }}
+              </h4>
+            </div>
+            <hr />
+            <h6>Renk: {{ carDetail.colorName }}</h6>
+            <hr />
+            <h6>Model: {{ carDetail.modelYear }}</h6>
+            <hr />
+            <div class="card-body">
+              <button
+                routerLink="/cars/cardetail/{{ carDetail.carId }}"
+                class="button button3"
+              >
+                Detaya Git
               </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>    
+    
+  </div>
 </div>

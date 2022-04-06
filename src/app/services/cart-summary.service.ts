@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from '../models/carDetail';
 import { CartItem } from '../models/cartItem';
 import { DateTimeService } from './date-time.service';
-import { CartItems } from '../models/cartItems';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +14,10 @@ export class CartSummaryService {
     private dateTimeService: DateTimeService,
     private toastrService: ToastrService
   ) {}
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   addToCart(carDetail: CarDetail, rentDate: Date, returnDate: Date) {
     var currentDate = new Date();
@@ -40,10 +43,14 @@ export class CartSummaryService {
       cartItem.carDetail = carDetail;
       cartItem.rentDate = rentDate;
       cartItem.returnDate = returnDate;
-
-      this.cartItems.push(cartItem);
+      this.cartItems.push(cartItem);  
       this.toastrService.success('Sepete eklendi', carDetail.carName);
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      (async () => {
+        await this.delay(1000);   
+        window.location.reload();      
+      })();
+      
     }
   }
 

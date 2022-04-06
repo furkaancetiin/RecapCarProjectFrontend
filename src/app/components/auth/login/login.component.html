@@ -29,9 +29,16 @@
               <input type="checkbox" value="remember-me" /> Beni Hatırla
             </label>
           </div>
-          <button class="w-100 btn btn-lg btn-primary" (click)="login()">
-            Giriş Yap
-          </button>
+        
+            <button  class="w-100 btn btn-lg btn-primary" (click)="login()">
+              Giriş Yap
+            </button>            
+          
+            <div *ngIf="dataLoading" style="margin-top:30px" class="spinner-border text-primary" role="status">
+              <span class="sr-only"></span>
+            </div>
+         
+          
           <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </form>
       </main>
