@@ -9,10 +9,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { LoginGuard } from './guards/login.guard';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-<<<<<<< HEAD
 import { PaymentCompletedComponent } from './components/payment-completed/payment-completed.component';
-=======
->>>>>>> e0ab2b157e43cf01653cb0ffbe2101cca0a2f80b
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},  
