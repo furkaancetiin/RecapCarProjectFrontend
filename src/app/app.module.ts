@@ -25,7 +25,6 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
 import { LoginComponent } from './components/auth/login/login.component'; 
 import { RegisterComponent } from './components/auth/register/register.component';
 
-
 import { ToastrModule } from 'ngx-toastr';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';

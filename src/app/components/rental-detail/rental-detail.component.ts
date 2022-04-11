@@ -5,7 +5,6 @@ import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
 import { CartItem } from 'src/app/models/cartItem';
 import { Customer } from 'src/app/models/customer';
-import { FindexPoint } from 'src/app/models/findexPoint';
 import { UserForLogin } from 'src/app/models/userForLogin';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarDetailService } from 'src/app/services/car-detail.service';
@@ -90,6 +89,7 @@ export class RentalDetailComponent implements OnInit {
       this.carImages = response.data;
     });
   }
+  
 
   calculateRentalPeriod() {
     this.rentalPeriod = this.getRentalPeriod(
