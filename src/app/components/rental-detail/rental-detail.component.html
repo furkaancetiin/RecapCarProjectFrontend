@@ -28,7 +28,7 @@
       </div>      
       <div class="modal-body">  
       <form>
-        <div *ngFor="let carDetail of carDetails">
+        <div *ngIf="carDetail">
           <div class="row">
             <div class="col-md-7">
               <img
@@ -63,7 +63,7 @@
               <br>
                 <div class="input-group">
                   <input class="form-control"
-                         name="rentDate" [(ngModel)]="rentDate" type="date" (ngModelChange)="calculateRentalPeriod()" [min]="getDateNow()">                  
+                         name="rentDate" [(ngModel)]="rentDate" type="date"  (ngModelChange)="calculateRentalPeriod()" [min]="getDateNow()">                  
                 </div>
               </div>
             </form>            
@@ -87,7 +87,7 @@
           Close
         </button>
         <div>
-          <tr *ngFor="let carDetail of carDetails">
+          <tr *ngIf="carDetail">
             <td>
               <button (click)="addToCart(carDetail,convertStringToDate(rentDate),convertStringToDate(returnDate))" type="submit" class="btn btn-warning">Sepete Ekle</button>
             </td>            

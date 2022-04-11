@@ -2,6 +2,7 @@
   <div class="col-md-3">
     <app-brand></app-brand>
     <app-color></app-color>
+  
   </div>
   <div class="col-md-9">
     <div class="container p-3 my-3 bg-white">
@@ -9,8 +10,8 @@
         <div class="row">
           <div class="col-md-7">
             <div id="images" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner" *ngFor="let carDetail of carDetails">
-                <div class="carousel-item active">
+              <div class="carousel-inner">
+                <div *ngIf="carDetail" class="carousel-item active">
                   <img
                     *ngIf="carDetail.image[0]"
                     src="{{ baseUrl }}{{ carDetail.image[0].imagePath }}"
@@ -33,31 +34,35 @@
           </div>
           <div class="col-md-5">
             <table class="table">
-              <tbody>
-                <tr *ngFor="let carDetail of carDetails">
+              <tbody *ngIf="carDetail"> 
+                <tr>
                   <th scope="col">Araç Adı</th>
                   <td>{{ carDetail.carName }}</td>
                 </tr>
-                <tr *ngFor="let carDetail of carDetails">
+                <tr>
                   <th scope="col">Marka</th>
                   <td>{{ carDetail.brandName }}</td>
                 </tr>
-                <tr *ngFor="let carDetail of carDetails">
+                <tr>
                   <th scope="col">Renk</th>
                   <td>{{ carDetail.colorName }}</td>
                 </tr>
-                <tr *ngFor="let carDetail of carDetails">
+                <tr>
                   <th scope="col">Model</th>
                   <td>{{ carDetail.modelYear }}</td>
                 </tr>
-                <tr *ngFor="let carDetail of carDetails">
+                <tr>
                   <th scope="col">Günlük Ücret</th>
                   <td>{{ carDetail.dailyPrice | currency:'₺' }}</td>
                 </tr>
-                <tr *ngFor="let carDetail of carDetails">
+                <tr>
                   <th scope="col">Açıklama</th>
                   <td>{{ carDetail.description }}</td>
-                </tr>                               
+                </tr>  
+                <tr>
+                  <th scope="col">Findex Puanı</th>
+                  <td>{{ carDetail.findexScore }}</td>
+                </tr>                              
               </tbody>
             </table>
             <div *ngIf="!rentalResult">

@@ -22,23 +22,14 @@ export class CartComponent implements OnInit {
     this.listCart()
   }
 
-  listCart(){  
-    this.cartItems=JSON.parse(localStorage.getItem('cartItems'),function(key,value){
-      if(key=="rentDate"){
-        return new Date(value);
-      }
-      if(key=="returnDate"){
-        return new Date(value);
-      }else{
-        return value;
-      }     
-    })     
+  listCart() {    
+    this.cartItems = this.cartSummaryService.listCart();
   }
 
-  removeCart(carDetail:CarDetail){
-    this.toastrService.error('Araç silindi', carDetail.carName);
+  removeCart(carDetail:CarDetail){    
     this.cartSummaryService.removeFromCart(carDetail);
     this.cartSummaryService.listCart();  
+    window.location.reload();
   }  
 
   calculateTotalRentalPeriod(){ 

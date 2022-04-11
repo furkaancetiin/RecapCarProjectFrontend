@@ -1,0 +1,25 @@
+<div class="margin-top">
+  <body>
+    <div class="card">
+      <div
+        style="
+          border-radius: 200px;
+          height: 200px;
+          width: 200px;
+          background: #f8faf5;
+          margin: 0 auto;
+        "
+      >
+        <i class="checkmark">✓</i>
+      </div><br>
+      <h1>ÖDEME İŞLEMİ TAMAMLANDI</h1>
+      <p class="text-muted">Bizi tercih ettiğiniz için teşekkür ederiz.</p><br>      
+        <li class="list-group-item"> <strong>Kiralanan Araç Sayısı:</strong> {{ cartItems.length }}</li>
+        <li class="list-group-item"><strong>Toplam Kiralanan Gün Sayısı: </strong> {{ calculateTotalRentalPeriod() }}</li>        
+      <br>
+      <div routerLink="/" class="btn btn-success payment">
+        ANASAYFAYA DÖN
+      </div>
+    </div>
+  </body>
+</div>

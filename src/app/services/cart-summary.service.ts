@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { CarDetail } from '../models/carDetail';
 import { CartItem } from '../models/cartItem';
 import { DateTimeService } from './date-time.service';
-import { CartItems } from '../models/cartItems';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +15,12 @@ export class CartSummaryService {
     private toastrService: ToastrService
   ) {}
 
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
   addToCart(carDetail: CarDetail, rentDate: Date, returnDate: Date) {
-    var currentDate = new Date();
-    rentDate = new Date(rentDate);
+    var currentDate = new Date();     
 
     this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -33,17 +35,22 @@ export class CartSummaryService {
     }
     if (!rentDate.getTime() || !returnDate.getTime()) {
       this.toastrService.error('Lütfen kiralama ve dönüş tarihi giriniz.');
-    } else if (rentDate < currentDate || returnDate < rentDate) {
-      this.toastrService.error('Lütfen girilen tarihleri kontrol ediniz.');
+    } else if (rentDate.getDate() < currentDate.getDate() || returnDate <= rentDate) {      
+      this.toastrService.error('Lütfen girilen tarihleri kontrol ediniz.');      
     } else {
       let cartItem = new CartItem();
       cartItem.carDetail = carDetail;
       cartItem.rentDate = rentDate;
       cartItem.returnDate = returnDate;
-
-      this.cartItems.push(cartItem);
+      this.cartItems.push(cartItem);  
       this.toastrService.success('Sepete eklendi', carDetail.carName);
+      console.log(rentDate,currentDate)
       localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      (async () => {
+        await this.delay(1000);   
+        window.location.reload();      
+      })();
+      
     }
   }
 

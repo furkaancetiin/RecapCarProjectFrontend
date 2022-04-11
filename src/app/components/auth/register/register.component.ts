@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule,Validators,FormGroup,FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+
 
 @Component({
   selector: 'app-register',
@@ -7,9 +12,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  registerForm:FormGroup;
+
+  constructor(private formBuilder:FormBuilder,private authService:AuthService,private toastrService:ToastrService,private localStorageService:LocalStorageService) { }
 
   ngOnInit(): void {
+    this.createRegisterForm()
   }
 
+  createRegisterForm(){
+    this.registerForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      firstName:['',Validators.required],
+      lastName:['',Validators.required]
+    })
+  }
+
+  register(){
+    if(this.registerForm.valid){
+      let registerModel=Object.assign({},this.registerForm.value);
+
+      this.authService.register(registerModel).subscribe(response=>{
+        this.toastrService.success(response.message);
+        this.localStorageService.setItem('token',response.data.token);
+      },responseError=>{
+        this.toastrService.error(responseError.error)
+      })
+    }
+  }
 }

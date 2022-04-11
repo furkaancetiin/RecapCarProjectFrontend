@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
+import { RentPaymentRequest } from '../models/rentPaymentRequest';
 import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
@@ -16,5 +17,10 @@ export class RentalService {
   getRentalDeliveryById(id:number):Observable<ListResponseModel<Rental>>{
     let newPath = environment.apiUrl+"rentals/getrentaldeliverybyid?id="+id
     return this.httpClient.get<ListResponseModel<Rental>>(newPath)
-  }    
+  }  
+  
+  rent(rentRequest:RentPaymentRequest):Observable<SingleResponseModel<RentPaymentRequest>>{
+    let newPath = environment.apiUrl + 'rentals/rent';
+    return this.httpClient.post<SingleResponseModel<RentPaymentRequest>>(newPath,rentRequest);
+  }
 }
