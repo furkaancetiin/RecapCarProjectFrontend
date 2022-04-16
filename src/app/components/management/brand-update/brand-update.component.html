@@ -1,0 +1,32 @@
+<div style="margin-top: 5em" class="container">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="title">Marka Güncelle</h5>
+        </div>
+        <div class="card-body">
+          <form>
+
+            <div class="col-md-2">
+              <select
+                name="brandName"
+                [(ngModel)]="brand.brandId"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option [ngValue]="null">Markalar</option>
+                <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
+                  {{ brand.brandName }}
+                </option>
+              </select>
+            </div> 
+
+
+          </form>
+        </div>
+        <br>
+        <div type="button" (click)="update()" class="btn btn-success payment">Güncelle</div>
+      </div>
+    </div>
+  </div>
+  

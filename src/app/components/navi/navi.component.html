@@ -1,12 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid margin-left">
-      <a class="navbar-brand" href="#">CetinCar</a>
+      <a style="margin-top:5px;" class="navbar-brand" href="#">CetinCar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">   
-              <app-cart-summary></app-cart-summary>               
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+          <div style="margin-top:9px;">
+            <app-cart-summary></app-cart-summary> 
+          </div>  
+               
+              <div *ngIf="isAdmin" class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Yönetim Paneli
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" routerLink="/car/management">Araç Yönetimi</a></li>
+                      <li><a class="dropdown-item" routerLink="/brand/management">Marka Yönetimi</a></li>
+                      <li><a class="dropdown-item" routerLink="/color/management">Renk Yönetimi</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>             
         </ul>        
       </div>
       <div class="margin-right">

@@ -1,17 +1,28 @@
-<div class="p-2 my-2">
-
-</div>
+<div class="p-2 my-2"></div>
 <nav class="navbar navbar-white bg-dark">
   <div class="container-fluid">
     <span class="navbar-brand mx-auto text-white"><h5>Renkler</h5></span>
   </div>
 </nav>
 
-<div class="mb-3">  
-  <input type="text"  [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Arama ifadesi giriniz">  
+<div class="mb-3">
+  <input
+    type="text"
+    [(ngModel)]="filterText"
+    class="form-control"
+    id="filterText"
+    placeholder="Arama ifadesi giriniz"
+  />
 </div>
 
 <ul class="list-group">
-    <li (click)="setCurrentColor(color)" routerLink="/cars/color/{{color.colorId}}" *ngFor="let color of colors | colorFilter:filterText" [class]="getCurrentColorClass(color)">{{color.colorName}}</li>    
-  </ul> 
-  <h5 *ngIf="currentColor">{{currentColor.colorName}} seçtiniz.</h5>
+  <li
+    style="cursor:pointer;"
+    (click)="setCurrentColor(color)"
+    routerLink="/cars/color/{{ color.colorId }}"
+    *ngFor="let color of colors | colorFilter: filterText"
+    [class]="getCurrentColorClass(color)"
+  >
+    {{ color.colorName }}
+  </li>
+</ul>

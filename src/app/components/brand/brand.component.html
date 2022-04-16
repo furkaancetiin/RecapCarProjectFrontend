@@ -15,7 +15,7 @@
   />
 </div>
 <ul class="list-group">
-  <li
+  <li style="cursor:pointer;"
     (click)="setCurrentBrand(brand)"
     routerLink="/cars/brand/{{ brand.brandId }}"
     *ngFor="let brand of brands | brandFilter: filterText"
@@ -24,4 +24,3 @@
     {{ brand.brandName }}
   </li>
 </ul>
-<h5 *ngIf="currentBrand">{{ currentBrand.brandName }} seçtiniz.</h5>

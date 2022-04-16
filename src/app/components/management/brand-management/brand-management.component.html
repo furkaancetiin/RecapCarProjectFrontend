@@ -1,0 +1,22 @@
+<table style="margin-top: 25px" class="table">
+  <thead style="color: white" class="bg-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Markalar</th>
+      <th scope="col">Güncelle/Sil</th>     
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let brand of brands">
+      <th scope="row">{{ brand.brandId }}</th>
+      <td>{{ brand.brandName }}</td>
+      <td>
+        <a style="cursor:pointer;margin-right: 10px;" routerLink="/brand/update/{{brand.brandId}}"><img src="assets/svg/update.svg" width="25" height="25" /></a>
+      <a style="cursor:pointer;" (click)="deleteBrand(brand)"><img  src="assets/svg/delete.svg" width="25" height="25" /></a> 
+       
+      </td>      
+    </tr>
+  </tbody>  
+</table>
+
+<div routerLink="/brand/add" class="btn btn-success payment">Marka Ekle</div>

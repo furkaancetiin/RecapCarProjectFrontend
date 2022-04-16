@@ -10,6 +10,16 @@ import { LoginGuard } from './guards/login.guard';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { PaymentCompletedComponent } from './components/payment-completed/payment-completed.component';
+import { BrandAddComponent } from './components/management/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/management/color-add/color-add.component';
+import { CarAddComponent } from './components/management/car-add/car-add.component';
+import { CarManagementComponent } from './components/management/car-management/car-management.component';
+import { BrandManagementComponent } from './components/management/brand-management/brand-management.component';
+import { ColorManagementComponent } from './components/management/color-management/color-management.component';
+import { BrandUpdateComponent } from './components/management/brand-update/brand-update.component';
+import { ColorUpdateComponent } from './components/management/color-update/color-update.component';
+import { CarUpdateComponent } from './components/management/car-update/car-update.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},  
@@ -25,7 +35,16 @@ const routes: Routes = [
   {path:"rental",component:RentalComponent},
   {path:"myCart",component:CartComponent},
   {path:"payment",component:PaymentComponent,canActivate:[LoginGuard]},
-  {path:"payment-completed",component:PaymentCompletedComponent} 
+  {path:"payment/completed",component:PaymentCompletedComponent} ,
+  {path:"brand/add",component:BrandAddComponent,canActivate:[AuthGuard]},
+  {path:"color/add",component:ColorAddComponent,canActivate:[AuthGuard]},
+  {path:"car/add",component:CarAddComponent,canActivate:[AuthGuard]},
+  {path:"car/management",component:CarManagementComponent,canActivate:[AuthGuard]},
+  {path:"brand/management",component:BrandManagementComponent,canActivate:[AuthGuard]},
+  {path:"color/management",component:ColorManagementComponent,canActivate:[AuthGuard]},
+  {path:"brand/update/:brandId",component:BrandUpdateComponent,canActivate:[AuthGuard]},
+  {path:"color/update/:colorId",component:ColorUpdateComponent,canActivate:[AuthGuard]},
+  {path:"car/update/:id",component:CarUpdateComponent,canActivate:[AuthGuard]},
 
 ];
 

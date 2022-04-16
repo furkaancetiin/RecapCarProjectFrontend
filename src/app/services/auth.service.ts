@@ -12,67 +12,104 @@ import { UserForLogin } from '../models/userForLogin';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 
-  constructor(private httpClient:HttpClient,private localStorageService:LocalStorageService,private jwtHelperService:JwtHelperService) { }
+  roleAs:string;
 
-  login(loginModel:LoginModel){
-    return this.httpClient.post<SingleResponseModel<TokenModel>>(environment.apiUrl+"auth/login",loginModel)
+  constructor(
+    private httpClient: HttpClient,
+    private localStorageService: LocalStorageService,
+    private jwtHelperService: JwtHelperService
+  ) {}
+
+  login(loginModel: LoginModel) {
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(
+      environment.apiUrl + 'auth/login',
+      loginModel
+    );
   }
 
-  register(registerModel:RegisterModel):Observable<SingleResponseModel<TokenModel>>{    
-      let newPath = environment.apiUrl + 'auth/register';
-      return this.httpClient.post<SingleResponseModel<TokenModel>>(newPath,registerModel);    
+  register(
+    registerModel: RegisterModel
+  ): Observable<SingleResponseModel<TokenModel>> {
+    let newPath = environment.apiUrl + 'auth/register';
+    return this.httpClient.post<SingleResponseModel<TokenModel>>(
+      newPath,
+      registerModel
+    );
   }
 
-  isAuthenticated(){
-    if(localStorage.getItem("token")){
+  isAuthenticated() {
+    if (localStorage.getItem('token')) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
+  loggedIn(): boolean {
+    let token = this.localStorageService.getItem('token');
+    if (token) {
+      return true;
+    }
+    return false;
+  }
+
   logOut() {
-    this.localStorageService.removeItem("token");
-    window.location.reload();    
+    this.localStorageService.removeItem('token');
+    window.location.reload();
   }
 
   private getToken(): string | null {
-    return this.localStorageService.getItem("token");
+    return this.localStorageService.getItem('token');
   }
 
   getUser(): UserForLogin | undefined {
     let token = this.getToken();
     if (token != null) {
-      let tokenDetails = Object.entries(this.jwtHelperService.decodeToken(token));
-      let user: UserForLogin = new UserForLogin;
-      tokenDetails.forEach(detail => {
-        switch (detail[0]) {
-          case "email": {
-            user.email = String(detail[1]);
-            break;
-          }
-          case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": {
-            user.name = String(detail[1]);
-            break;
-          }
-          case "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": {
-            user.roles = detail[1] as Array<string>
-            break;
-          }
-          case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier": {
-            user.id = Number(detail[1]);
-          }
+      let tokenDetails = Object.entries(
+        this.jwtHelperService.decodeToken(token)
+      );
+      let user: UserForLogin = new UserForLogin();
+      for (let i = 0; i < tokenDetails[0].length; i++) {
+        if (
+          tokenDetails[0][0] ===
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+        ) {
+          user.id = tokenDetails[0][1] as number;
         }
-      });
-      if (!user.roles) { 
+        if (tokenDetails[1][0] === 'email') {
+          user.email = tokenDetails[1][1] as string;
+        }
+        if (
+          tokenDetails[2][0] ===
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+        ) {
+          user.name = tokenDetails[2][1] as string;
+        }
+        if (
+          tokenDetails[3][0] ===
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+        ) {
+          tokenDetails[3][1];
+          user.roles = tokenDetails[3][1] as Array<string>;
+        }
+      }
+
+      if (!user.roles) {
         user.roles = [];
       }
       return user;
     }
     return undefined;
+  }
+
+  hasRole(user: UserForLogin, role: string): boolean {
+    if (user.roles.indexOf(role) !== -1) {
+      return true;
+    }
+    return false;
   }
 }

@@ -1,0 +1,117 @@
+<div style="margin-top: 5em" class="container">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h5 class="title">Araç Güncelle</h5>
+      </div>
+      <div class="card-body">
+        <form>
+            <br>
+          <div class="col-md-2">
+            <select
+              name="brandId"
+              [(ngModel)]="car.brandId"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option [ngValue]="null">Markalar</option>
+              <option *ngFor="let brand of brands" [ngValue]="brand.brandId">
+                {{ brand.brandName }}
+              </option>
+            </select>
+          </div>
+          <br />
+
+          <div class="col-md-2">
+            <select
+              name="colorId"
+              [(ngModel)]="car.colorId"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option [ngValue]="null">Renkler</option>
+              <option *ngFor="let color of colors" [ngValue]="color.colorId">
+                {{ color.colorName }}
+              </option>
+            </select>
+          </div>
+          <br />
+
+          <div class="mb-3">
+            <label for="carName">Araç Adı</label>
+            <div class="form-group">
+              <input
+                type="text"
+                name="carName"
+                id="carName"
+                [(ngModel)]="car.carName"
+                class="form-control"
+                placeHolder="Araç Adı"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="modelYear">Model Yılı</label>
+            <div class="form-group">
+              <input
+                type="number"
+                name="modelYear"
+                id="modelYear"
+                [(ngModel)]="car.modelYear"
+                class="form-control"
+                placeHolder="Model Yılı"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="dailyPrice">Günlük Kiralama Fiyatı</label>
+            <div class="form-group">
+              <input
+                type="number"
+                name="dailyPrice"
+                id="dailyPrice"
+                [(ngModel)]="car.dailyPrice"
+                class="form-control"
+                placeHolder="Günlük Kiralama Fiyatı"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="description">Açıklama</label>
+            <div class="form-group">
+              <input
+                type="text"
+                name="description"
+                id="description"
+                [(ngModel)]="car.description"
+                class="form-control"
+                placeHolder="Açıklama"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="findexScore">Findex Puanı</label>
+            <div class="form-group">
+              <input
+                type="number"
+                name="findexScore"
+                id="findexScore"
+                [(ngModel)]="car.findexScore"
+                class="form-control"
+                placeHolder="Findex Puanı"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <br />
+      <div type="button" (click)="update()" class="btn btn-success payment">
+        Güncelle
+      </div>
+    </div>
+  </div>
+</div>

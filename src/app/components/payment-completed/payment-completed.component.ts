@@ -20,7 +20,6 @@ export class PaymentCompletedComponent implements OnInit {
     this.calculateTotalAmount();
   }
 
-
   listCart() {
     this.cartItems = this.cartSummaryService.listCart();
   }
@@ -40,4 +39,5 @@ export class PaymentCompletedComponent implements OnInit {
   getRentalPeriod(rentDate: Date, returnDate: Date): number {
     return this.dateTimeService.getRentalPeriod(rentDate, returnDate);
   }
+ 
 }

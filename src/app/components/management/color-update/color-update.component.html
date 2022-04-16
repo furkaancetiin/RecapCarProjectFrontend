@@ -1,0 +1,31 @@
+<div style="margin-top: 5em" class="container">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="title">Renk Güncelle</h5>
+        </div>
+        <div class="card-body">
+          <form >
+          
+            <div class="col-md-2">
+              <select
+                name="colorId"
+                [(ngModel)]="color.colorId"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option [ngValue]="null">Renkler</option>
+                <option *ngFor="let color of colors" [ngValue]="color.colorId">
+                  {{ color.colorName }}
+                </option>
+              </select>
+            </div>
+
+          </form>
+        </div>
+        <br>
+        <div type="button" (click)="update()" class="btn btn-success payment">Güncelle</div>
+      </div>
+    </div>
+  </div>
+  

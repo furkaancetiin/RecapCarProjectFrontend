@@ -44,7 +44,7 @@ export class CarComponent implements OnInit {
       } else {
         this.getCarDetails();
       }
-    });
+    });  
   }
 
   setCurrentCar(car: Car) {
@@ -106,5 +106,5 @@ export class CarComponent implements OnInit {
     this.carDetailService.getCarDetailsByColorId(id).subscribe((response) => {
       this.carDetails = response.data;
     });
-  }
+  }  
 }

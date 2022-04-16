@@ -1,0 +1,15 @@
+.dark-header{
+  background-color: black;
+  
+}
+
+.btn.btn-success.payment {
+  background-color: #4CAF50; 
+  color: white;
+  border-radius: 0px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px
+}

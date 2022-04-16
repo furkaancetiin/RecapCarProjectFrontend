@@ -1,4 +1,4 @@
-export interface Car{
+export class Car{
     id:number;
     brandId:number;
     colorId:number;
@@ -6,4 +6,5 @@ export interface Car{
     modelYear:number;
     dailyPrice:number;
     description:string;
+    findexScore:number;
 }

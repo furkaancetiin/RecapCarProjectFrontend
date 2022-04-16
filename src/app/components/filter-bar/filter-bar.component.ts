@@ -36,7 +36,7 @@ export class FilterBarComponent implements OnInit {
     this.filterBarForm = this.formBuilder.group({
       brand: new FormControl(null, [Validators.required]),
       color: new FormControl(null, [Validators.required]),
-    });
+    });    
   }
 
   getBrands() {

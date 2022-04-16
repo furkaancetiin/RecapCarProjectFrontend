@@ -1,0 +1,31 @@
+<table style="margin-top: 25px" class="table">
+    <thead style="color: white" class="bg-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Araç Adı</th>
+        <th scope="col">Model Yılı</th>
+        <th scope="col">Günlük Kiralama Fiyatı</th>
+        <th scope="col">Findex Puanı</th>
+        <th scope="col">Açıklama</th>        
+        <th scope="col">Güncelle/Sil</th>     
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of cars">
+        <th scope="row">{{ car.id }}</th>
+        <td>{{ car.carName }}</td>
+        <td>{{car.modelYear}}</td>
+        <td>{{car.dailyPrice}}</td>
+        <td>{{car.findexScore}}</td>
+        <td>{{car.description}}</td>
+        <td>
+          <a style="cursor:pointer;margin-right: 10px;" routerLink="/car/update/{{car.id}}"><img src="assets/svg/update.svg" width="25" height="25" /></a>
+        <a style="cursor:pointer;" (click)="deleteCar(car)"><img  src="assets/svg/delete.svg" width="25" height="25" /></a> 
+         
+        </td>      
+      </tr>
+    </tbody>  
+  </table>
+  
+  <div routerLink="/car/add" class="btn btn-success payment">Araç Ekle</div>
+  

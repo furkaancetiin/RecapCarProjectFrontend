@@ -1,0 +1,111 @@
+<div style="margin-top: 5em" class="container">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h5 class="title">Araç Ekle</h5>
+      </div>
+      <br>
+      <div class="card-body">
+        <form [formGroup]="addCarForm">
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-md-2">
+                <select
+                  formControlName="brandId"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option [ngValue]="null">Markalar</option>
+                  <option
+                    *ngFor="let brand of brands"
+                    [ngValue]="brand.brandId"
+                  >
+                    {{ brand.brandName }}
+                  </option>
+                </select>                
+              </div>
+              <div class="col-md-2">
+                <select
+                  formControlName="colorId"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option [ngValue]="null">Renkler</option>
+                  <option
+                    *ngFor="let color of colors"
+                    [ngValue]="color.colorId"
+                  >
+                    {{ color.colorName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <br>
+
+            <label for="carName">Araç Adı</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="carName"
+                formControlName="carName"
+                class="form-control"
+                placeHolder="Araç Adı"
+              />
+            </div><br>
+
+            <label for="modelYear">Model Yılı</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="modelYear"
+                step="any"
+                min="1"
+                formControlName="modelYear"
+                class="form-control"
+                placeHolder="Model Yılı"
+              />
+            </div><br>
+
+            <label for="dailyPrice">Günlük Ücreti</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="dailyPrice"
+                min="1"
+                step="any"
+                formControlName="dailyPrice"
+                class="form-control"
+                placeHolder="Günlük Ücreti"
+              />
+            </div><br>
+
+            <label for="findexScore">Findex Puanı</label>
+            <div class="form-group">
+              <input
+                type="number"
+                id="findexScore"
+                formControlName="findexScore"
+                class="form-control"
+                placeHolder="Findex Puanı"
+              />
+            </div><br>
+
+            <label for="description">Açıklama</label>
+            <div class="form-group">
+              <input
+                type="text"
+                id="description"
+                formControlName="description"
+                class="form-control"
+                placeHolder="Açıklama"
+              />
+            </div>
+            
+          </div>
+        </form>
+      </div>
+      <br />
+      <div type="button" (click)="add()" class="btn btn-success payment">Araç Ekle</div>
+    </div>
+  </div>
+</div>

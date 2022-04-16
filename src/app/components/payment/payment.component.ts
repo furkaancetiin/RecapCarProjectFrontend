@@ -22,6 +22,8 @@ import { SingleFindexPoint } from 'src/app/models/singleFindexPoint';
 import { CustomerCreditCardService } from 'src/app/services/customer-credit-card.service';
 import { CreditCard } from 'src/app/models/creditCard';
 import { RouteConfigLoadEnd, Router } from '@angular/router';
+import { CustomerCreditCardModel } from 'src/app/models/customerCreditCardModel';
+import { SingleResponseModel } from 'src/app/models/singleResponseModel';
 
 @Component({
   selector: 'app-payment',
@@ -33,11 +35,14 @@ export class PaymentComponent implements OnInit {
   creditCardForm: FormGroup;
   currentUser: UserForLogin;
   findexPointOfCustomer: number;
-  customerCreditCards: CreditCard[];
+  customerCreditCards: CreditCard[]=[];
   customerCreditCard: CreditCard;
   anotherCreditCard = false;
   savedCreditCard = false;
   paymentLoading = false;
+  paymentCompleted = false;
+  rentSuccessResponse: SingleResponseModel<RentPaymentRequest>;
+  displayStyle = 'none';
 
   public customPatterns = {
     '0': { pattern: new RegExp('[a-zA-Z ıIöÖçÇüÜşŞİğĞ]') },
@@ -61,7 +66,8 @@ export class PaymentComponent implements OnInit {
     this.createCreditCardForm();
     this.currentUser = this.authService.getUser()!;
     this.getCustomerId();
-    this.getCustomerCreditCardById();
+    this.getCustomerCreditCardById();    
+    this.openPopup();
   }
 
   createCreditCardForm() {
@@ -71,6 +77,12 @@ export class PaymentComponent implements OnInit {
       expireMonthAndYear: ['', Validators.required],
       cvc: ['', Validators.required],
     });
+  }
+
+  openPopup() {
+    if (this.paymentCompleted === true) {
+      this.displayStyle = 'block';
+    }
   }
 
   getCustomerCreditCardById() {
@@ -83,7 +95,7 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  toPayWithAnotherCreditCard(): boolean {
+  toPayWithAnotherCreditCard(): boolean {   
     return (this.anotherCreditCard = true);
   }
 
@@ -122,7 +134,7 @@ export class PaymentComponent implements OnInit {
             this.rentalService.rent(rentRequest).subscribe(
               (response) => {
                 this.toastrService.success(response.message, 'Başarılı');
-                this.router.navigate(['payment-completed']);
+                this.router.navigate(['payment/completed']);
               },
               (errorResponse) => {
                 this.toastrService.error(errorResponse.error.message);
@@ -133,6 +145,33 @@ export class PaymentComponent implements OnInit {
       },
       () => {}
     );
+  }
+
+  saveCustomerCreditCard() {
+    if (this.creditCardForm.valid) {
+      this.getCustomerId().then((customerId) => {
+        let customerCreditCardModel = new CustomerCreditCardModel();
+        customerCreditCardModel.creditCard = Object.assign(
+          {},
+          this.creditCardForm.value
+        );
+        customerCreditCardModel.customerId = customerId;
+        this.customerCreditCardService
+          .saveCustomerCreditCard(customerCreditCardModel)
+          .subscribe(
+            (response) => {
+              this.toastrService.success(
+                response.message,
+                'Kredi kartı kayıt edildi.'
+              );
+              this.router.navigate(['payment/completed']);
+            },
+            (errorResponse) => {
+              this.toastrService.error(errorResponse.error.message);
+            }
+          );
+      });
+    }
   }
 
   rentWithAnotherCreditCard() {
@@ -148,18 +187,19 @@ export class PaymentComponent implements OnInit {
             (rentRequest.rentals = this.createRentals(customerId)),
             (rentRequest.findexScores = this.createFindexPoint()),
             (async () => {
-              this.paymentLoading = true;
-              await this.delay(3000);
+              this.paymentLoading = true;   
+              await this.delay(3000);           
               this.rentalService.rent(rentRequest).subscribe(
                 (response) => {
                   this.toastrService.success(response.message, 'Başarılı');
-                  this.router.navigate(['payment-completed']);
+                  this.paymentCompleted = true;
+                  this.openPopup();                  
                 },
                 (errorResponse) => {
                   this.toastrService.error(errorResponse.error.message);
                 }
-              );
-              this.paymentLoading = false;
+              );              
+              this.paymentLoading = false; 
             })();
         },
         () => {}
@@ -177,6 +217,7 @@ export class PaymentComponent implements OnInit {
     this.cartItems.forEach((cartItem) => {
       let singleFindexPoint: SingleFindexPoint = new SingleFindexPoint();
       singleFindexPoint.findexScore = cartItem.carDetail.findexScore;
+      singleFindexPoint.carId = cartItem.carDetail.carId;
       singleFindexPoints.push(singleFindexPoint);
     });
     console.log(singleFindexPoints);

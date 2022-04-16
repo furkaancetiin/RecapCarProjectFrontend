@@ -16,7 +16,9 @@
             ><span class="fw-bold">Son Kullanma Tarihi:</span
             ><span> 10/16</span></small
           >
-          <small><span class="fw-bold">Ad Soyad:</span><span> Furkan</span></small>
+          <small
+            ><span class="fw-bold">Ad Soyad:</span><span> Furkan</span></small
+          >
         </div>
       </div>
     </div>
@@ -36,172 +38,367 @@
             ><span class="fw-bold">Son Kullanma Tarihi:</span
             ><span> 10/16</span></small
           >
-          <small><span class="fw-bold">Ad Soyad:</span><span> Furkan</span></small>
+          <small
+            ><span class="fw-bold">Ad Soyad:</span><span> Furkan</span></small
+          >
         </div>
       </div>
     </div>
 
-    
-    
-
     <div class="col-12 mt-4">
       <div>
-        <div class="card p-3">
-          <p class="mb-0 fw-bold h4">Kayıtlı Kredi Kartlarım</p>
+        <div *ngIf="customerCreditCards.length>0">
+          <div class="card p-3">
+            <p class="mb-0 fw-bold h4">Kayıtlı Kredi Kartlarım</p>
+          </div>
+          <div  class="card p-3">
+            <ul>
+              <li *ngFor="let customerCreditCard of customerCreditCards">
+                <div style="margin-left: 20px" class="form-check">
+                  <input
+                    (click)="setCurrentCustomerCreditCard(customerCreditCard)"
+                    style="margin-top: 100px"
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault1"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    <div class="cardCustomer p-3">
+                      <div class="img-box">
+                        <img
+                          src="https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png"
+                          alt=""
+                        />
+                      </div>
+                      <br />
+                      <div class="number">
+                        <label class="fw-bold" type="text"
+                          ><input
+                            value="{{ customerCreditCard.cardNumber }}"
+                            type="text"
+                            id="lname"
+                            name="lname"
+                            disabled /><br /><br
+                        /></label>
+                      </div>
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        <small
+                          ><span class="fw-bold">Son Kullanma Tarihi: </span
+                          ><span style="margin-right: 10px">
+                            {{ customerCreditCard.expireMonthAndYear }}</span
+                          ></small
+                        >
+                        <small
+                          ><span class="fw-bold">Ad Soyad:</span
+                          ><span>
+                            {{ customerCreditCard.cardHolderFullName }}</span
+                          ></small
+                        >
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <br />
+              </li>
+              <br />
+              <div style="margin-left: 22px" class="form-check">
+                <input
+                  (click)="toPayWithAnotherCreditCard()"
+                  style="margin-top: 3px"
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label" for="flexRadioDefault1"
+                  >Başka bir kredi kartı ile ödemek istiyorum.</label
+                >
+              </div>
+            </ul>
+          </div>
+  
+          <div *ngIf="anotherCreditCard === false" class="col-12">
+            <div
+              *ngIf="paymentLoading === false"
+              (click)="rentWithSavedCustomerCreditCard()"
+              class="btn btn-success payment"
+            >
+              KAYITLI KARTIM İLE ÖDE
+            </div>
+            <div *ngIf="!paymentLoading === false" class="loader"></div>
+          </div>
+
         </div>        
-            <div class="card p-3"> 
-              <ul>
-                <li *ngFor="let customerCreditCard of customerCreditCards">
-                  <div style="margin-left:20px;" class="form-check">
-                    <input (click)="setCurrentCustomerCreditCard(customerCreditCard)" style="margin-top:100px;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      <div class="cardCustomer p-3">
-                        <div class="img-box">
-                          <img
-                            src="https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png"
-                            alt=""
-                          />
-                        </div><br>
-                        <div class="number">
-                          <label class="fw-bold" type="text"><input value="{{customerCreditCard.cardNumber}}"  type="text" id="lname" name="lname" disabled><br><br></label>
+      
+        <br />
+
+        <div *ngIf="customerCreditCards.length===0">          
+            <div class="card p-3">
+              <p class="mb-0 fw-bold h4">Kredi Kart Bilgileri</p>
+            </div>
+  
+            <div class="col-12">
+              <div class="card p-3">
+                <div class="row">
+                  <div class="col-md-5 mb-lg-0 mb-3">
+                    <div class="col-md-7 summary">
+                      <div>
+                        <h5><b>Kiralama Özeti</b></h5>
+                      </div>
+                      <br />
+                      <div class="row">
+                        Kiralanacak Araç Sayısı: {{ cartItems.length }}
+                      </div>
+                      <br />
+                      <div class="row">
+                        Toplam Kiralanan Gün Sayısı:
+                        {{ calculateTotalRentalPeriod() }}
+                      </div>
+                      <br />
+                      <hr />
+                      <br />
+                      <div class="col" style="padding-left: 0">TOPLAM TUTAR</div>
+                      <div class="col text-right" style="color: green">
+                        {{ calculateTotalAmount() | currency: "₺" }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <form [formGroup]="creditCardForm" action="" class="form">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              oninput="this.value = this.value.toLocaleUpperCase()"
+                              formControlName="cardHolderFullName"
+                              id="cardHolderFullName"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="cardHolderFullName" class="form__label"
+                              >Kart Sahibinin Adı Soyadı</label
+                            >
+                          </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <small
-                            ><span  class="fw-bold">Son Kullanma Tarihi: </span
-                            ><span style="margin-right:10px ;"> {{customerCreditCard.expireMonthAndYear}}</span></small
-                          >                      
-                          <small><span  class="fw-bold">Ad Soyad:</span><span> {{customerCreditCard.cardHolderFullName}}</span></small>
+                        <div class="col-12">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              id="cardNumber"
+                              mask="0000 0000 0000 0000"
+                              formControlName="cardNumber"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="cardNumber" class="form__label"
+                              >Kredi Kartı Numarası</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              id="expireMonthAndYear"
+                              formControlName="expireMonthAndYear"
+                              mask="00/00"
+                              [dropSpecialCharacters]="false"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="expireMonthAndYear" class="form__label"
+                              >AA/YY</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder=" "
+                              mask="000"
+                              id="cvc"
+                              formControlName="cvc"
+                            />
+                            <label for="cvc" class="form__label">CVV/CVC</label>
+                          </div>
                         </div>
                       </div>
-                    </label>
+                    </form>
                   </div>
-                  <br>
-                </li>
-                <br>
-                <div style="margin-left:22px;" class="form-check">
-                  <input (click)="toPayWithAnotherCreditCard()" style="margin-top:3px;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                  <label class="form-check-label" for="flexRadioDefault1">Başka bir kredi kartı ile ödemek istiyorum.</label>
-                </div>
-              </ul>                        
-          </div>
-         
-          
-
-        
-      
-      <div *ngIf="anotherCreditCard===false" class="col-12">
-        <div *ngIf="paymentLoading===false" (click)="rentWithSavedCustomerCreditCard()" class="btn btn-success payment">
-          KAYITLI KARTIM İLE ÖDE
-        </div>        
-        <div *ngIf="!paymentLoading===false"  class="loader">         
-        </div>
-      </div>
-      <br>
-      <div *ngIf="anotherCreditCard===true">
-        <div class="card p-3">
-          <p class="mb-0 fw-bold h4">Kredi Kart Bilgileri</p>
-        </div>
-      
-      <div class="col-12">
-        <div class="card p-3">
-          <div class="row">
-            <div class="col-md-5 mb-lg-0 mb-3">
-              <div class="col-md-7 summary">
-                <div>
-                  <h5><b>Kiralama Özeti</b></h5>
-                </div>
-                <br />
-                <div class="row">
-                  Kiralanacak Araç Sayısı: {{ cartItems.length }}
-                </div>
-                <br />
-                <div class="row">
-                  Toplam Kiralanan Gün Sayısı: {{ calculateTotalRentalPeriod() }}
-                </div>
-                <br />
-                <hr />
-                <br />
-                <div class="col" style="padding-left: 0">TOPLAM TUTAR</div>
-                <div class="col text-right" style="color: green">
-                  {{ calculateTotalAmount() | currency: "₺" }}
                 </div>
               </div>
             </div>
-            <div class="col-lg-7">
-              <form [formGroup]="creditCardForm" action="" class="form">
+            <div class="col-12">
+              <div
+                *ngIf="paymentLoading === false"
+                type="button"
+                (click)="rentWithAnotherCreditCard()"
+                class="btn btn-success payment"
+              >
+                ÖDEMEYi TAMAMLA
+              </div>
+              <div *ngIf="!paymentLoading === false" class="loader"></div>
+            </div>          
+        </div>
+
+       
+         
+        
+          <div *ngIf="anotherCreditCard === true">
+            <div class="card p-3">
+              <p class="mb-0 fw-bold h4">Kredi Kart Bilgileri</p>
+            </div>
+  
+            <div class="col-12">
+              <div class="card p-3">
                 <div class="row">
-                  <div class="col-12">
-                    <div  class="form__div">
-                      <input                                          
-                        type="text"
-                        oninput="this.value = this.value.toLocaleUpperCase()"
-                        formControlName="cardHolderFullName"
-                        id="cardHolderFullName"
-                        class="form-control"                     
-                        placeholder=" "
-                      />
-                      <label for="cardHolderFullName" class="form__label"
-                        >Kart Sahibinin Adı Soyadı</label
-                      >
+                  <div class="col-md-5 mb-lg-0 mb-3">
+                    <div class="col-md-7 summary">
+                      <div>
+                        <h5><b>Kiralama Özeti</b></h5>
+                      </div>
+                      <br />
+                      <div class="row">
+                        Kiralanacak Araç Sayısı: {{ cartItems.length }}
+                      </div>
+                      <br />
+                      <div class="row">
+                        Toplam Kiralanan Gün Sayısı:
+                        {{ calculateTotalRentalPeriod() }}
+                      </div>
+                      <br />
+                      <hr />
+                      <br />
+                      <div class="col" style="padding-left: 0">TOPLAM TUTAR</div>
+                      <div class="col text-right" style="color: green">
+                        {{ calculateTotalAmount() | currency: "₺" }}
+                      </div>
                     </div>
                   </div>
-                  <div class="col-12">
-                    <div class="form__div">
-                      <input                      
-                        type="text"
-                        id="cardNumber"
-                        mask="0000 0000 0000 0000"
-                        formControlName="cardNumber"
-                        class="form-control"
-                        placeholder=" "
-                      />
-                      <label for="cardNumber" class="form__label"
-                        >Kredi Kartı Numarası</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form__div">
-                      <input                      
-                        type="text"
-                        id="expireMonthAndYear"
-                        formControlName="expireMonthAndYear"
-                        mask="00/00"
-                        [dropSpecialCharacters]="false"
-                        class="form-control"
-                        placeholder=" "
-                      />
-                      <label for="expireMonthAndYear" class="form__label"
-                        >AA/YY</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form__div">
-                      <input                      
-                        type="text"
-                        class="form-control"
-                        placeholder=" "
-                        mask="000"
-                        id="cvc"
-                        formControlName="cvc"
-                      />
-                      <label for="cvc" class="form__label">CVV/CVC</label>
-                    </div>
+                  <div class="col-lg-7">
+                    <form [formGroup]="creditCardForm" action="" class="form">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              oninput="this.value = this.value.toLocaleUpperCase()"
+                              formControlName="cardHolderFullName"
+                              id="cardHolderFullName"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="cardHolderFullName" class="form__label"
+                              >Kart Sahibinin Adı Soyadı</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              id="cardNumber"
+                              mask="0000 0000 0000 0000"
+                              formControlName="cardNumber"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="cardNumber" class="form__label"
+                              >Kredi Kartı Numarası</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              id="expireMonthAndYear"
+                              formControlName="expireMonthAndYear"
+                              mask="00/00"
+                              [dropSpecialCharacters]="false"
+                              class="form-control"
+                              placeholder=" "
+                            />
+                            <label for="expireMonthAndYear" class="form__label"
+                              >AA/YY</label
+                            >
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form__div">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder=" "
+                              mask="000"
+                              id="cvc"
+                              formControlName="cvc"
+                            />
+                            <label for="cvc" class="form__label">CVV/CVC</label>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
-              </form>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                *ngIf="paymentLoading === false"
+                type="button"
+                (click)="rentWithAnotherCreditCard()"
+                class="btn btn-success payment"
+              >
+                ÖDEMEYi TAMAMLA
+              </div>
+              <div *ngIf="!paymentLoading === false" class="loader"></div>
             </div>
           </div>
-        </div>
+        
+
+
+
+
+
+      
       </div>
-      <div class="col-12">
-        <div *ngIf="paymentLoading===false" type="button" (click)="rentWithAnotherCreditCard()" class="btn btn-success payment">
-          ÖDEMEYi TAMAMLA
-        </div>        
-        <div *ngIf="!paymentLoading===false"  class="loader">         
+    </div>
+  </div>
+  <div class="modal" [ngStyle]="{ display: displayStyle }">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Bilgilendirme</h4>
         </div>
-      </div>
+        <div class="modal-body">
+          <p>
+            Kredi kartı bilgilerinizi bir sonraki ödeme işlemlerinde kolaylık
+            sağlamak amacıyla kayıt etmek ister misiniz?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            (click)="saveCustomerCreditCard()"
+            type="button"
+            class="btn btn-success"
+          >
+            Evet
+          </button>
+          <button
+            routerLink="/payment/completed"
+            type="button"
+            class="btn btn-danger"
+          >
+            Hayır
+          </button>
+        </div>
       </div>
     </div>
   </div>

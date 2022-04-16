@@ -13,6 +13,7 @@ export class NaviComponent implements OnInit {
   dataLoading = false;
   isLoggedIn: boolean;
   currentUser: UserForLogin;
+  isAdmin = false;
 
   constructor(
     private authService: AuthService,
@@ -21,6 +22,8 @@ export class NaviComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.currentUser = this.authService.getUser()!;
+    this.isUserAdmin();
   }
 
   delay(ms: number) {
@@ -29,14 +32,15 @@ export class NaviComponent implements OnInit {
 
   logOut() {
     (async () => {
-      this.dataLoading=true;
-      await this.delay(1000);      
+      this.dataLoading = true;
+      await this.delay(1000);
       this.authService.logOut();
     })();
-
   }
 
-  getCurrentUser() {
-    this.currentUser = this.authService.getUser()!;
+  isUserAdmin()  {
+    if(this.authService.loggedIn()){
+      this.isAdmin = this.authService.hasRole(this.currentUser, "admin"); 
+    }     
   }
 }

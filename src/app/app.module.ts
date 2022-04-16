@@ -8,11 +8,11 @@ import localeTr from '@angular/common/locales/Tr';
 import { NgxMaskModule,IConfig } from 'ngx-mask';
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarComponent } from './components/car/car.component';
 import { BrandComponent } from './components/brand/brand.component';
-import { RentalComponent } from './components/rental/rental.component';
 import { ColorComponent } from './components/color/color.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { NaviComponent } from './components/navi/navi.component';
@@ -33,6 +33,16 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { PaymentCompletedComponent } from './components/payment-completed/payment-completed.component';
+import { BrandAddComponent } from './components/management/brand-add/brand-add.component';
+import { ColorAddComponent } from './components/management/color-add/color-add.component';
+import { CarAddComponent } from './components/management/car-add/car-add.component';
+import { CarManagementComponent } from './components/management/car-management/car-management.component';
+import { BrandManagementComponent } from './components/management/brand-management/brand-management.component';
+import { ColorManagementComponent } from './components/management/color-management/color-management.component';
+import { BrandUpdateComponent } from './components/management/brand-update/brand-update.component';
+import { CarUpdateComponent } from './components/management/car-update/car-update.component';
+import { ColorUpdateComponent } from './components/management/color-update/color-update.component';
+import { RentalComponent } from './components/rental/rental.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localeTr);
@@ -41,8 +51,7 @@ registerLocaleData(localeTr);
   declarations: [
     AppComponent,
     CarComponent,
-    BrandComponent,
-    RentalComponent,
+    BrandComponent,    
     ColorComponent,
     CustomerComponent,
     NaviComponent,
@@ -59,6 +68,13 @@ registerLocaleData(localeTr);
     PaymentComponent,
     RegisterComponent,
     PaymentCompletedComponent,
+    BrandAddComponent,
+    ColorAddComponent,
+    CarAddComponent,
+    CarManagementComponent,
+    BrandManagementComponent,
+    ColorManagementComponent, 
+    BrandUpdateComponent, CarUpdateComponent, ColorUpdateComponent, RentalComponent,
   ],
 
   imports: [
