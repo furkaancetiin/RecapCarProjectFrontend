@@ -1,47 +1,41 @@
-<div class="container">
-    <body class="text-center">
-      <main class="form-signin">
-        <form [formGroup]="loginForm">
-          <h1 class="h3 mb-3 fw-normal">Giriş Yap</h1>  
-          <div class="form-floating">
-            <input
-              formControlName="email"
-              type="email"
-              class="form-control"
-              id="floatingInput"
-              placeholder="name@example.com"
-            />
-            <label for="floatingInput">E-posta</label>
-          </div>
-          <div class="form-floating">
-            <input
-            formControlName="password"
-              type="password"
-              class="form-control"
-              id="floatingPassword"
-              placeholder="Password"
-            />
-            <label for="floatingPassword">Parola</label>
-          </div>
+  <section class="vh-100 bg-image">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Giriş Yap</h2>
   
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me" /> Beni Hatırla
-            </label>
-          </div>
-        
-            <button  class="w-100 btn btn-lg btn-primary" (click)="login()">
-              Giriş Yap
-            </button>            
-          
-            <div *ngIf="dataLoading" style="margin-top:30px" class="spinner-border text-primary" role="status">
-              <span class="sr-only"></span>
+                <form [formGroup]="loginForm"> 
+                  <div class="form-outline mb-4">
+                    <input placeholder="Email Adresiniz" formControlName="email" type="email" id="email" class="form-control form-control-lg" />                    
+                  </div>
+  
+                  <div class="form-outline mb-4">
+                    <input placeholder="Şifreniz" formControlName="password" type="password" id="password" class="form-control form-control-lg" />
+                    
+                  </div>
+                  <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"><div (click)="login()" class="text-white">Giriş Yap</div></button>
+                    </div>
+                    <br>
+                    <div class="checkbox mb-3 d-flex justify-content-center">
+                      <label>
+                        <input type="checkbox" value="remember-me" /> Beni Hatırla
+                      </label>
+                    </div>
+    
+                    <div *ngIf="dataLoading" style="margin-left:47%" class="d-flex justify-content-center spinner-border " role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>  
+                </form>  
+              </div>
             </div>
-         
-          
-          <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
-        </form>
-      </main>
-    </body>
-  </div>
-  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

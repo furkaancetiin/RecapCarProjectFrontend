@@ -81,11 +81,14 @@ export class CarComponent implements OnInit {
   }
 
   getFilteredCarsById(brandId: Brand, colorId: Color) {
+  (async () => {     
+    await this.delay(1000);
     this.carDetailService
-      .getFilteredCarsById(brandId, colorId)
-      .subscribe((response) => {
-        this.carDetails = response.data;
-      });
+    .getFilteredCarsById(brandId, colorId)
+    .subscribe((response) => {
+    this.carDetails = response.data;
+      });  
+    })();   
   }
 
   getCarDetails() {
@@ -107,4 +110,9 @@ export class CarComponent implements OnInit {
       this.carDetails = response.data;
     });
   }  
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
 }

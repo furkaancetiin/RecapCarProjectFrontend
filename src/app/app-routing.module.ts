@@ -20,6 +20,7 @@ import { BrandUpdateComponent } from './components/management/brand-update/brand
 import { ColorUpdateComponent } from './components/management/color-update/color-update.component';
 import { CarUpdateComponent } from './components/management/car-update/car-update.component';
 import { AuthGuard } from './guards/auth.guard';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},  
@@ -35,7 +36,7 @@ const routes: Routes = [
   {path:"rental",component:RentalComponent},
   {path:"myCart",component:CartComponent},
   {path:"payment",component:PaymentComponent,canActivate:[LoginGuard]},
-  {path:"payment/completed",component:PaymentCompletedComponent} ,
+  {path:"payment/completed",component:PaymentCompletedComponent,canActivate:[LoginGuard]} ,
   {path:"brand/add",component:BrandAddComponent,canActivate:[AuthGuard]},
   {path:"color/add",component:ColorAddComponent,canActivate:[AuthGuard]},
   {path:"car/add",component:CarAddComponent,canActivate:[AuthGuard]},
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path:"brand/update/:brandId",component:BrandUpdateComponent,canActivate:[AuthGuard]},
   {path:"color/update/:colorId",component:ColorUpdateComponent,canActivate:[AuthGuard]},
   {path:"car/update/:id",component:CarUpdateComponent,canActivate:[AuthGuard]},
+  {path:"myprofile",component:UserComponent,canActivate:[LoginGuard]},
 
 ];
 

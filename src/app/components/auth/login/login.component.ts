@@ -17,12 +17,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  dataLoading=false;
+  dataLoading = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private toastrService: ToastrService,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,16 +37,31 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.valid) {      
+    if (this.loginForm.valid) {
       let loginModel = Object.assign({}, this.loginForm.value);
-      this.dataLoading=true;
-      this.authService.login(loginModel).subscribe((response) => {
-        this.toastrService.info(response.message)
-        localStorage.setItem("token",response.data.token)
-        window.location.replace(''); 
-      },responseError=>{
-        this.toastrService.error(responseError.error)
-      });
-    }
+      
+      (async () => {    
+        this.dataLoading = true;   
+        await this.delay(1000);
+        this.authService.login(loginModel).subscribe(          
+          (response) => {
+            this.toastrService.success('Giriş işlemi başarılı')
+            localStorage.setItem('token', response.data.token);
+            window.location.replace('');
+          },
+          (responseError) => {
+            this.toastrService.error(responseError.error);
+          }          
+        );
+        
+        this.dataLoading = false;
+      })();      
+    }else{
+      this.toastrService.error('Email ve şifrenizi giriniz.')
+    }   
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

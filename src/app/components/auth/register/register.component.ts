@@ -32,13 +32,22 @@ export class RegisterComponent implements OnInit {
   register(){
     if(this.registerForm.valid){
       let registerModel=Object.assign({},this.registerForm.value);
-
       this.authService.register(registerModel).subscribe(response=>{
         this.toastrService.success(response.message);
         this.localStorageService.setItem('token',response.data.token);
-      },responseError=>{
-        this.toastrService.error(responseError.error)
-      })
+      },(responseError) => {
+        if (responseError.error.Errors.length > 0) {
+          for (let index = 0; index < responseError.error.Errors.length; index++) {
+            this.toastrService.error(
+              responseError.error.Errors[index].ErrorMessage,
+              'Doğrulama Hatası'
+            );
+          }
+        }
+      }
+    );
+    }else{
+      this.toastrService.error('Lütfen tüm alanları eksiksiz doldurunuz.')
     }
   }
 }
