@@ -7,7 +7,7 @@ RecapCarProject (RentACar) is a car rental project where I use C# in the Backend
 * [General Info](#general-info)
 * [Setup](#setup)
 * [Usage](#usage)
-* [Pages](#page)
+* [Pages](#pages)
 * [Technologies Used](#technologies-used)
 * [Associated Project](#associated-Project)
 * [Contributions](#contributions)
