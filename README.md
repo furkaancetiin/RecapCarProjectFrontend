@@ -51,7 +51,7 @@ While the application is running, you can use the project as you wish! In the [P
 <p align="center">Car Detail</p>
 <img src="https://media.discordapp.net/attachments/767148733380689920/966462515095687198/cardetail.png?width=1334&height=683">
 <p align="center">Rental Detail</p>
-<img src="https://media.discordapp.net/attachments/767148733380689920/966462555084161124/rentaldetail.png?width=1333&height=683">
+<img src="https://media.discordapp.net/attachments/767148733380689920/966645968940449892/unknown.png?width=1329&height=683">
 <p align="center">Cart Summary</p>
 <img src="https://media.discordapp.net/attachments/767148733380689920/966462525971509318/cartsummary.png?width=1329&height=683">
 <p align="center">Payment With Saved Credit Card</p>
