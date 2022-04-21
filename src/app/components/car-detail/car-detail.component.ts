@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CarDetail } from 'src/app/models/carDetail';
 import { CarImage } from 'src/app/models/carImage';
+import { Rental } from 'src/app/models/rental';
 import { CarDetailService } from 'src/app/services/car-detail.service';
+import { DateTimeService } from 'src/app/services/date-time.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,11 +17,14 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private carDetailService: CarDetailService,   
-    private rentalService: RentalService
+    private rentalService: RentalService,
+    private dateTimeService:DateTimeService
   ) {}
   
   carDetail: CarDetail; 
   carImages: CarImage[];
+  rentals:Rental[]
+  reservationState=false;
   rentalResult: string;
   baseUrl = environment.imageBase;
   defaultImage = environment.defaultImage;
@@ -29,6 +34,7 @@ export class CarDetailComponent implements OnInit {
       if (params['carId']) {        
         this.getCarDetailsByCarId(params['carId']);
         this.getRentalDeliveryById(params['carId']);
+        this.getRentalsById(params['carId']);
       }
     });
        
@@ -48,6 +54,20 @@ export class CarDetailComponent implements OnInit {
     }
   }
 
+  getRentalsById(carId: number) {
+    this.rentalService.getRentalsById(carId).subscribe(
+      (response) => { 
+             
+        this.rentals = response.data;
+        this.rentals.forEach(rental => {
+         rental.rentDate=  new Date(rental.rentDate),
+          rental.returnDate=new Date(rental.returnDate)
+          this.reservationState=true; 
+        }); 
+      }      
+    );
+  }
+
   getRentalDeliveryById(carId: number) {
     this.rentalService.getRentalDeliveryById(carId).subscribe(
       (response) => {
@@ -59,4 +79,9 @@ export class CarDetailComponent implements OnInit {
       }
     );
   }
+
+  showDate(date:Date){
+    return this.dateTimeService.showDate(date); 
+  }  
+
 }

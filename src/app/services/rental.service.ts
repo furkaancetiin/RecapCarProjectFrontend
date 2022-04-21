@@ -23,4 +23,9 @@ export class RentalService {
     let newPath = environment.apiUrl + 'rentals/rent';
     return this.httpClient.post<SingleResponseModel<RentPaymentRequest>>(newPath,rentRequest);
   }
+
+  getRentalsById(id:number):Observable<ListResponseModel<Rental>>{
+    let newPath = environment.apiUrl+"rentals/getrentalsbyid?id="+id
+    return this.httpClient.get<ListResponseModel<Rental>>(newPath)
+  }  
 }

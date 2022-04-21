@@ -43,7 +43,8 @@ import { BrandUpdateComponent } from './components/management/brand-update/brand
 import { CarUpdateComponent } from './components/management/car-update/car-update.component';
 import { ColorUpdateComponent } from './components/management/color-update/color-update.component';
 import { RentalComponent } from './components/rental/rental.component';
-import { UserComponent } from './components/user/user.component';
+import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
+
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 registerLocaleData(localeTr);
@@ -75,7 +76,7 @@ registerLocaleData(localeTr);
     CarManagementComponent,
     BrandManagementComponent,
     ColorManagementComponent, 
-    BrandUpdateComponent, CarUpdateComponent, ColorUpdateComponent, RentalComponent, UserComponent,
+    BrandUpdateComponent, CarUpdateComponent, ColorUpdateComponent, RentalComponent, MyProfileComponent,
   ],
 
   imports: [

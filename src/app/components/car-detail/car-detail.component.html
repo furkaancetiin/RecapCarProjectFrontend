@@ -62,12 +62,28 @@
                 <tr>
                   <th scope="col">Findex Puanı</th>
                   <td>{{ carDetail.findexScore }}</td>
-                </tr>                              
+                </tr>                 
               </tbody>
-            </table>
+            </table>            
+
+            <div *ngIf="reservationState" class="text-muted">
+              Araç bu tarihler arasında rezerve edilmiştir. Lütfen
+              tarih seçimini bu tarihleri dikkate
+              alarak yapınız.
+              <hr>
+                <div *ngFor="let rental of rentals">
+                 
+                  {{ showDate(rental.rentDate) }} -
+                      {{ showDate(rental.returnDate) }}
+                      <hr>
+                </div>
+            </div>
+
             <div *ngIf="!rentalResult">
+             
               <app-rental-detail></app-rental-detail>  
-            </div>            
+            </div> 
+                     
             <div *ngIf="rentalResult" class="alert alert-danger" role="alert">                            
                 <td class="mx-auto">{{ rentalResult }}</td>              
             </div>                       

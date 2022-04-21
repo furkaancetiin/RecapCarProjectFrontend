@@ -1,0 +1,48 @@
+<section class="vh-100 bg-image">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Profilim</h2>
+
+              <form [formGroup]="">
+                <div class="text-uppercase text-center mb-5">
+                  <img
+                    src="assets/svg/no-profile.svg"
+                    width="150"
+                    height="150"
+                    class="rounded-circle"
+                  />
+                </div>
+
+                <div class="form-outline mb-4 text-uppercase text-center mb-5">
+                  <input
+                  class="form-control form-control-lg"
+                    value="{{ currentUser.name }}"
+                    type="text"
+                    id="lname"
+                    name="lname"
+                    readonly
+                  />
+                </div>
+
+                <div class="form-outline mb-4 text-uppercase text-center mb-5 ">
+                  <input
+                  class="form-control form-control-lg"
+                    value="{{ currentUser.email }}"
+                    type="text"
+                    id="lname"
+                    name="lname"
+                    readonly
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
